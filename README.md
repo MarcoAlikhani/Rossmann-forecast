@@ -30,6 +30,8 @@ python train.py
 Produces `models/forecast_model.joblib` + `models/forecast_model_metadata.json`.
 
 ## Project Structure
+
+```
 .
 ├── configs/        # YAML configs (paths, hyperparameters)
 ├── data/raw/       # Raw CSVs (gitignored)
@@ -39,6 +41,7 @@ Produces `models/forecast_model.joblib` + `models/forecast_model_metadata.json`.
 ├── src/            # Source code (data, features, model)
 ├── tests/          # Unit + integration tests
 └── train.py        # One-command training pipeline
+```
 
 ## Roadmap
 
