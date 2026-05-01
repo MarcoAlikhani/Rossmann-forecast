@@ -1,0 +1,25 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Data — NEVER commit raw data to git
+data/raw/
+data/processed/
+
+# Models — too big for git, we'll handle these properly in Phase 9
+models/*.pkl
+models/*.joblib
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (we'll need this later)
+.env
+*.key
