@@ -8,9 +8,9 @@ __pycache__/
 data/raw/
 data/processed/
 
-# Models — too big for git, we'll handle these properly in Phase 9
-models/*.pkl
-models/*.joblib
+# Models — generated artifacts, handled by registry in Phase 9
+models/*
+!models/.gitkeep
 
 # IDE
 .vscode/
