@@ -49,7 +49,7 @@ Produces `models/forecast_model.joblib` + `models/forecast_model_metadata.json`.
 - [x] Phase 2: Reproducibility (project structure, configs, seeds)
 - [x] Phase 3: Validation & Tests
 - [x] Phase 4: API & Containerization
-- [ ] Phase 5: Local Deployment
+- [x] Phase 5: Local Deployment
 - [ ] Phase 6: CI/CD
 - [ ] Phase 7: Cloud Deployment
 - [ ] Phase 8: Logging & Metrics
