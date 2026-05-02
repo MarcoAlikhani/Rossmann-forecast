@@ -13,10 +13,11 @@ dist/
 
 # === Jupyter ===
 .ipynb_checkpoints/
+notebooks/
 notebooks/01_exploration.ipynb         # NEW: hide notebooks from repo entirely
 
 # === Testing & coverage =======
-.pytest_cache/
+.pytest_cach
 .coverage
 .coverage.*
 coverage.xml
