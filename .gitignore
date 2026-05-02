@@ -46,7 +46,8 @@ desktop.ini
 # === Secrets ===
 .env
 .env.*
-!.env.example                    # allow committing example env files
+!.env.example                   
+# allow committing example env files
 *.key
 *.pem
 *.crt

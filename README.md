@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/MarcoAlikhani/Rossmann-forecast/actions/workflows/ci.yml/badge.svg)
 ![Docker](https://github.com/MarcoAlikhani/Rossmann-forecast/actions/workflows/docker.yml/badge.svg)
-
+![Publish](https://github.com/MarcoAlikhani/Rossmann-forecast/actions/workflows/publish.yml/badge.svg)
 End-to-end ML system for daily sales forecasting...
 
 End-to-end ML system for daily sales forecasting — built as a learning project to practice the full notebook → production journey.
