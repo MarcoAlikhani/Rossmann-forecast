@@ -79,3 +79,28 @@ def test_predict_batch_returns_list(client):
     body = r.json()
     assert len(body["predictions"]) == 2
     assert body["model_version"] is not None
+
+
+def test_metrics_endpoint_exposes_prometheus_format(client):
+# Prometheus scrapers expect text/plain with specific format
+    r = client.get("/metrics")
+    assert r.status_code == 200
+    assert "text/plain" in r.headers["content-type"]
+    # After at least one request, our counter should appear
+    assert "forecast_api_requests_total" in r.text
+
+
+def test_request_id_echoed_in_response(client):
+    """Middleware should echo X-Request-ID for distributed tracing."""
+    r = client.get("/health", headers={"X-Request-ID": "test-trace-123"})
+    assert r.status_code == 200
+    assert r.headers.get("X-Request-ID") == "test-trace-123"
+
+
+def test_request_id_generated_when_missing(client):
+    """If client doesn't provide one, server generates a UUID."""
+    r = client.get("/health")
+    assert r.status_code == 200
+    request_id = r.headers.get("X-Request-ID")
+    assert request_id is not None
+    assert len(request_id) > 10  # UUIDs are 36 chars
