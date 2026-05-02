@@ -15,12 +15,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Install minimal deps for smoke model
+        run: |
+          python -m pip install --upgrade pip
+          pip install joblib numpy pandas scikit-learn
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Train a tiny model for the image
-        # CI doesn't have your full data; we need *some* model artifact for the
-        # image to load at startup. Train a 1-tree model on synthetic data.
         run: |
           mkdir -p models
           python -c "
@@ -50,8 +59,6 @@ jobs:
           tags: rossmann-forecast:ci
 
       - name: Boot smoke test
-        # Start the container, wait, hit /health, kill it. If health doesn't
-        # return 200 within 30 seconds, the test fails.
         run: |
           docker run -d --name smoke -p 8000:8000 rossmann-forecast:ci
           for i in $(seq 1 30); do

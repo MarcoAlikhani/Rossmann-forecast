@@ -26,6 +26,28 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Train CI smoke model
+        # API tests need a model artifact at startup. Train a tiny synthetic one.
+        run: |
+          mkdir -p models
+          python -c "
+          import joblib, json, numpy as np, pandas as pd
+          from sklearn.ensemble import RandomForestRegressor
+          rng = np.random.default_rng(0)
+          cols = ['Store','DayOfWeek','Open','Promo','SchoolHoliday',
+                  'CompetitionDistance','CompetitionOpenSinceMonth',
+                  'CompetitionOpenSinceYear','Promo2','Promo2SinceWeek','Promo2SinceYear']
+          X = pd.DataFrame(rng.integers(0, 10, size=(100, len(cols))), columns=cols)
+          y = pd.Series(rng.integers(1000, 9000, size=100))
+          model = RandomForestRegressor(n_estimators=2, random_state=0).fit(X, y)
+          joblib.dump(model, 'models/forecast_model.joblib')
+          json.dump({
+              'data_hash': 'ci-smoke',
+              'trained_at': '2026-01-01T00:00:00Z',
+              'feature_columns': cols,
+          }, open('models/forecast_model_metadata.json','w'))
+          "
+
       - name: Lint with ruff
         run: |
           ruff check .
