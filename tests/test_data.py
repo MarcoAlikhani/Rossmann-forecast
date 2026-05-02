@@ -1,4 +1,5 @@
 """Tests for src/data.py — preprocessing logic."""
+
 import pandas as pd
 import pytest
 
@@ -12,21 +13,23 @@ from src.data import (
 @pytest.fixture
 def raw_df():
     """Small synthetic dataframe mimicking merged Rossmann data."""
-    return pd.DataFrame({
-        "Store": [1, 1, 2, 2, 3],
-        "DayOfWeek": [1, 2, 3, 4, 5],
-        "Date": ["2015-01-01", "2015-01-02", "2015-01-03", "2015-01-04", "2015-01-05"],
-        "Sales": [100, 0, 200, 150, 300],  # one zero-sales row
-        "Customers": [10, 0, 20, 15, 30],
-        "Open": [1, 0, 1, 1, 1],
-        "Promo": [0, 0, 1, 1, 0],
-        "StateHoliday": ["0", "0", "0", "0", "0"],
-        "SchoolHoliday": [0, 0, 0, 1, 0],
-        "StoreType": ["a", "a", "b", "b", "c"],
-        "Assortment": ["a", "a", "b", "b", "c"],
-        "PromoInterval": [None, None, "Jan,Apr,Jul,Oct", None, None],
-        "CompetitionDistance": [100.0, 100.0, 200.0, 200.0, None],
-    })
+    return pd.DataFrame(
+        {
+            "Store": [1, 1, 2, 2, 3],
+            "DayOfWeek": [1, 2, 3, 4, 5],
+            "Date": ["2015-01-01", "2015-01-02", "2015-01-03", "2015-01-04", "2015-01-05"],
+            "Sales": [100, 0, 200, 150, 300],  # one zero-sales row
+            "Customers": [10, 0, 20, 15, 30],
+            "Open": [1, 0, 1, 1, 1],
+            "Promo": [0, 0, 1, 1, 0],
+            "StateHoliday": ["0", "0", "0", "0", "0"],
+            "SchoolHoliday": [0, 0, 0, 1, 0],
+            "StoreType": ["a", "a", "b", "b", "c"],
+            "Assortment": ["a", "a", "b", "b", "c"],
+            "PromoInterval": [None, None, "Jan,Apr,Jul,Oct", None, None],
+            "CompetitionDistance": [100.0, 100.0, 200.0, 200.0, None],
+        }
+    )
 
 
 def test_preprocess_drops_zero_sales(raw_df):

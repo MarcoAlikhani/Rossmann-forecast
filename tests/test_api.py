@@ -1,4 +1,5 @@
 """Tests for the FastAPI service."""
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -64,14 +65,32 @@ def test_predict_rejects_missing_field(client):
 def test_predict_batch_returns_list(client):
     payload = {
         "inputs": [
-            {"Store": 1, "DayOfWeek": 4, "Open": 1, "Promo": 1, "SchoolHoliday": 0,
-             "CompetitionDistance": 1270.0, "CompetitionOpenSinceMonth": 9.0,
-             "CompetitionOpenSinceYear": 2008.0, "Promo2": 0,
-             "Promo2SinceWeek": 0.0, "Promo2SinceYear": 0.0},
-            {"Store": 2, "DayOfWeek": 5, "Open": 1, "Promo": 0, "SchoolHoliday": 0,
-             "CompetitionDistance": 570.0, "CompetitionOpenSinceMonth": 11.0,
-             "CompetitionOpenSinceYear": 2007.0, "Promo2": 1,
-             "Promo2SinceWeek": 13.0, "Promo2SinceYear": 2010.0},
+            {
+                "Store": 1,
+                "DayOfWeek": 4,
+                "Open": 1,
+                "Promo": 1,
+                "SchoolHoliday": 0,
+                "CompetitionDistance": 1270.0,
+                "CompetitionOpenSinceMonth": 9.0,
+                "CompetitionOpenSinceYear": 2008.0,
+                "Promo2": 0,
+                "Promo2SinceWeek": 0.0,
+                "Promo2SinceYear": 0.0,
+            },
+            {
+                "Store": 2,
+                "DayOfWeek": 5,
+                "Open": 1,
+                "Promo": 0,
+                "SchoolHoliday": 0,
+                "CompetitionDistance": 570.0,
+                "CompetitionOpenSinceMonth": 11.0,
+                "CompetitionOpenSinceYear": 2007.0,
+                "Promo2": 1,
+                "Promo2SinceWeek": 13.0,
+                "Promo2SinceYear": 2010.0,
+            },
         ]
     }
     r = client.post("/predict/batch", json=payload)
@@ -82,7 +101,7 @@ def test_predict_batch_returns_list(client):
 
 
 def test_metrics_endpoint_exposes_prometheus_format(client):
-# Prometheus scrapers expect text/plain with specific format
+    # Prometheus scrapers expect text/plain with specific format
     r = client.get("/metrics")
     assert r.status_code == 200
     assert "text/plain" in r.headers["content-type"]

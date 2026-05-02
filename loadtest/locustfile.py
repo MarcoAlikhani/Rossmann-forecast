@@ -1,6 +1,6 @@
 """Load test — measures real latency under concurrent load."""
-from locust import HttpUser, between, task
 
+from locust import HttpUser, between, task
 
 SAMPLE_PAYLOAD = {
     "Store": 1,

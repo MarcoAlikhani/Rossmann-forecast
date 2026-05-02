@@ -1,7 +1,6 @@
 """Data schema definitions — what valid data looks like at each pipeline stage."""
-import pandera as pa
-from pandera import Column, Check, DataFrameSchema
 
+from pandera import Check, Column, DataFrameSchema
 
 # Schema for the raw merged train+store data, BEFORE preprocessing
 RAW_MERGED_SCHEMA = DataFrameSchema(

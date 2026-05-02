@@ -1,4 +1,5 @@
 """Custom middleware: request IDs, latency tracking, metrics."""
+
 import time
 import uuid
 
@@ -52,15 +53,15 @@ class RequestContextMiddleware(BaseHTTPMiddleware):
         try:
             response = await call_next(request)
             status = response.status_code
-        except Exception as exc:
+        except Exception:
             duration = time.perf_counter() - start
             logger.exception("request_failed", duration_s=duration)
             REQUEST_COUNT.labels(
                 method=request.method, endpoint=request.url.path, status_code="500"
             ).inc()
-            REQUEST_LATENCY.labels(
-                method=request.method, endpoint=request.url.path
-            ).observe(duration)
+            REQUEST_LATENCY.labels(method=request.method, endpoint=request.url.path).observe(
+                duration
+            )
             raise
 
         duration = time.perf_counter() - start
@@ -69,9 +70,7 @@ class RequestContextMiddleware(BaseHTTPMiddleware):
         REQUEST_COUNT.labels(
             method=request.method, endpoint=request.url.path, status_code=str(status)
         ).inc()
-        REQUEST_LATENCY.labels(
-            method=request.method, endpoint=request.url.path
-        ).observe(duration)
+        REQUEST_LATENCY.labels(method=request.method, endpoint=request.url.path).observe(duration)
 
         # Echo request ID back to the client for distributed debugging
         response.headers["X-Request-ID"] = request_id

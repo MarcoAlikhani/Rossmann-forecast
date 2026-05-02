@@ -1,4 +1,5 @@
 """Tests for src/model.py — training and evaluation."""
+
 import numpy as np
 import pandas as pd
 from sklearn.dummy import DummyRegressor

@@ -1,4 +1,5 @@
 """FastAPI application — serves the forecast model."""
+
 import json
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -112,7 +113,12 @@ def predict(req: PredictionRequest):
     pred = float(state["model"].predict(row)[0])
 
     PREDICTION_COUNT.labels(endpoint="/predict").inc()
-    logger.info("prediction_made", store=req.Store, day_of_week=req.DayOfWeek, predicted_sales=round(pred, 2))
+    logger.info(
+        "prediction_made",
+        store=req.Store,
+        day_of_week=req.DayOfWeek,
+        predicted_sales=round(pred, 2),
+    )
 
     return PredictionResponse(predicted_sales=pred)
 

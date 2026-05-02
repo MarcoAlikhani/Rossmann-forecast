@@ -1,4 +1,5 @@
 """Data loading and preprocessing."""
+
 import hashlib
 
 import pandas as pd
@@ -48,9 +49,9 @@ def time_aware_split(df: pd.DataFrame, test_size_fraction: float = 0.2):
 
 def hash_dataframe(df: pd.DataFrame) -> str:
     """Compute a stable hash of a dataframe — for data versioning."""
-    return hashlib.sha256(
-        pd.util.hash_pandas_object(df, index=True).values.tobytes()
-    ).hexdigest()[:12]
+    return hashlib.sha256(pd.util.hash_pandas_object(df, index=True).values.tobytes()).hexdigest()[
+        :12
+    ]
 
 
 def hash_file(path: str) -> str:

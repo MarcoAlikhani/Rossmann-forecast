@@ -1,0 +1,46 @@
+[project]
+name = "rossmann-forecast"
+version = "0.2.0"
+description = "End-to-end ML forecasting service"
+requires-python = ">=3.10"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = [
+    "venv",
+    ".venv",
+    "notebooks",
+    "data",
+    "models",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes (unused imports, undefined names)
+    "I",    # isort (import sorting)
+    "B",    # flake8-bugbear (likely bugs)
+    "UP",   # pyupgrade (modernize syntax)
+    "SIM",  # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+
+[tool.coverage.run]
+source = ["src", "api"]
+omit = ["tests/*", "venv/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
