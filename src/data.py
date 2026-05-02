@@ -1,7 +1,9 @@
 """Data loading and preprocessing."""
-import pandas as pd
 import hashlib
-from pathlib import Path
+
+import pandas as pd
+
+from src.schema import CLEANED_SCHEMA, RAW_MERGED_SCHEMA
 
 
 def load_raw_data(train_path: str, store_path: str) -> pd.DataFrame:
@@ -9,6 +11,7 @@ def load_raw_data(train_path: str, store_path: str) -> pd.DataFrame:
     train = pd.read_csv(train_path, low_memory=False)
     store = pd.read_csv(store_path)
     df = train.merge(store, on="Store", how="left")
+    RAW_MERGED_SCHEMA.validate(df)
     return df
 
 
@@ -28,6 +31,7 @@ def preprocess(
     df = df.fillna(fill_na_value)
     df = df.drop(columns=drop_columns)
 
+    CLEANED_SCHEMA.validate(df)
     return df
 
 

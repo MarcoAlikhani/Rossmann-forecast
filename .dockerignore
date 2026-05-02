@@ -1,0 +1,14 @@
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.git/
+.gitignore
+data/raw/
+data/processed/
+notebooks/
+tests/
+reports/
+*.md
+.vscode/
+.idea/
