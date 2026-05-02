@@ -47,8 +47,8 @@ Produces `models/forecast_model.joblib` + `models/forecast_model_metadata.json`.
 
 - [x] Phase 1: The Sin (deliberately bad notebook)
 - [x] Phase 2: Reproducibility (project structure, configs, seeds)
-- [ ] Phase 3: Validation & Tests
-- [ ] Phase 4: API & Containerization
+- [x] Phase 3: Validation & Tests
+- [x] Phase 4: API & Containerization
 - [ ] Phase 5: Local Deployment
 - [ ] Phase 6: CI/CD
 - [ ] Phase 7: Cloud Deployment
